@@ -23,7 +23,7 @@ public class CoinCapClient : ICoinCapClient
         ApiKey = apiKey;
     }
 
-    public async Task<List<CoinsResponse?>> AssetsAsync(GetCoinsRequest request)
+    public async Task<List<CoinsResponse>> AssetsAsync(GetCoinsRequest request)
     {
         if(request is null)
             throw new ArgumentNullException(nameof(request));
