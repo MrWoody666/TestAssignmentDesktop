@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
-using System.Text.Json;
 using TestAssignmentDesktop.CoinCap.Domain.Assets.Models.GetCoinById.Request;
 using TestAssignmentDesktop.CoinCap.Domain.Assets.Models.GetCoinById.Response;
 using TestAssignmentDesktop.CoinCap.Domain.Assets.Models.GetCoins.Request;
 using TestAssignmentDesktop.CoinCap.Domain.Assets.Models.GetCoins.Response;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace TestAssignmentDesktop.CoinCap.Client;
 

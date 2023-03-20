@@ -1,7 +1,9 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using TestAssignmentDesktop.CoinCap.Client;
 using TestAssignmentDesktop.CoinCap.Domain.Assets.Models.GetCoinById.Request;
 using TestAssignmentDesktop.CoinCap.Domain.Assets.Models.GetCoins.Request;
@@ -14,8 +16,8 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         CryptoCoinsList();
-        CryptocurrencyListView.SelectionChanged +=  ViewDetailsCoin;
-        SearchBox.TextChanged += SearchBox_TextChanged;
+        CryptocurrencyListView.SelectionChanged += ViewDetailsCoin;
+        SearchBox.TextChanged += SearchBoxTextChanged;
     }
 
     public async Task CryptoCoinsList()
@@ -25,9 +27,11 @@ public partial class MainWindow : Window
         var coinsListResponse = await coinClient.GetAssetsAsync(request);
         foreach (var coins in coinsListResponse)
         {
-            var listItem = new ListViewItem();
-            listItem.Content = $"{coins.Rank} - {coins.Name} - ({coins.Symbol})";
-            listItem.Tag = coins.Id;
+            var listItem = new ListViewItem
+            {
+                Content = $"{coins.Rank} - {coins.Name} - ({coins.Symbol})",
+                Tag = coins.Id
+            };
             CryptocurrencyListView.Items.Add(listItem);
         }
     }
@@ -37,31 +41,41 @@ public partial class MainWindow : Window
         var coinClient = new CoinCapClient(new HttpClient());
         if (CryptocurrencyListView.SelectedItem != null)
         {
-            ListViewItem item = (CryptocurrencyListView.SelectedItem as ListViewItem);
+            ListViewItem? item = (CryptocurrencyListView.SelectedItem as ListViewItem);
             string coinId = item.Tag.ToString();
             var request = new GetCoinByIdRequest(coinId);
             var coinByIdResponse = await coinClient.GetAssetByIdAsync(request);
-            CryptocurrencyDetails.DataContext = coinByIdResponse.Data;
+
+            var detailsPage = new DetailsPage
+            {
+                DataContext = coinByIdResponse.Data
+            };
+
+            // Открываем страницу DetailsPage
+            Navig.NavigationService.Navigate(detailsPage);
         }
     }
 
-    private async void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
+    public async void SearchBoxTextChanged(object sender, TextChangedEventArgs e)
+   {
         var coinClient = new CoinCapClient(new HttpClient());
         string searchText = SearchBox.Text.Trim();
-        var request = new GetCoinsRequest(searchText, 2000, 0);
-        var cryptocurrencies = await coinClient.GetAssetsAsync(request);
+        int limit = Convert.ToInt32(LimitComboBox.Text);
+        var request = new GetCoinsRequest(searchText, limit, 0);
+        var coinsListResponse = await coinClient.GetAssetsAsync(request);
 
         if (searchText != "")
         {
             CryptocurrencyListView.Items.Clear();
-            foreach (var coins in cryptocurrencies)
+            foreach (var coins in coinsListResponse)
             {
-                var listItem = new ListViewItem();
-                listItem.Content = $"{coins.Rank} - {coins.Name} - ({coins.Symbol})";
-                listItem.Tag = coins.Id;
+                var listItem = new ListViewItem
+                {
+                    Content = $"{coins.Rank} - {coins.Name} - ({coins.Symbol})",
+                    Tag = coins.Id
+                };
                 CryptocurrencyListView.Items.Add(listItem);
             }
         }
-    }
+   }
 }

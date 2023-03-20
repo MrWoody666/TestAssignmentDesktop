@@ -5,14 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestAssignmentDesktop.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="CoinCapClient" Height="530" Width="793">
+    <Grid Margin="0,10,0,21">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="211*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="135*" />
-            <ColumnDefinition Width="132*"/>
-            <ColumnDefinition Width="533*" />
+            <ColumnDefinition Width="78*" />
+            <ColumnDefinition Width="282*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="437*" />
         </Grid.ColumnDefinitions>
-        <ListView x:Name="CryptocurrencyListView" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,25,533,0">
+        <ListView x:Name="CryptocurrencyListView" Margin="19,184,43,10" Grid.Row="1" Grid.ColumnSpan="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -22,15 +28,14 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <StackPanel x:Name="CryptocurrencyDetails" Grid.Column="2">
-            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20"/>
-            <TextBlock Text= "{Binding Symbol, StringFormat= 'Symbol: {0:C} '}" FontSize="16"/>
-            <TextBlock Text="{Binding Rank, StringFormat= 'Rank: {0:C}'}" FontSize="16"/>
-            <TextBlock Text="{Binding PriceUsd, StringFormat='Price: {0:C}$'}" FontSize="16"/>
-            <TextBlock Text="{Binding MarketCapUsd, StringFormat='Market Cap: {0:C}'}" FontSize="16"/>
-            <TextBlock Text="{Binding VolumeUsd24Hr, StringFormat='24H Volume: {0:C}'}" FontSize="16"/>
-            <TextBlock Text="{Binding ChangePercent24Hr, StringFormat='24H Change: {0:F2}%'}" FontSize="16"/>
-        </StackPanel>
-        <TextBox x:Name="SearchBox" TextChanged="SearchBox_TextChanged" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125" Height="17" RenderTransformOrigin="0.514,0.552" Margin="0,3,0,0"/>
+        <TextBox x:Name="SearchBox" TextChanged="SearchBoxTextChanged" HorizontalAlignment="Left" TextWrapping="Wrap" Width="188" Height="34" RenderTransformOrigin="0.514,0.552" Margin="0,78,0,0" Grid.Row="1" FontSize="18" VerticalAlignment="Top" Text="" TextAlignment="Center" Grid.Column="1"/>
+        <Label Content="Search crypto coin" HorizontalAlignment="Left" Margin="0,18,0,0" VerticalAlignment="Top" Width="188" Height="41" Grid.Row="1" HorizontalContentAlignment="Center" FontSize="20" FontWeight="Bold" Grid.Column="1"/>
+        <ComboBox x:Name="LimitComboBox" HorizontalAlignment="Left" Margin="128,138,0,0" Grid.Row="1" VerticalAlignment="Top" Width="60" Height="31" SelectedIndex="0" FontWeight="Bold" FontSize="16" FontFamily="Segoe UI Black" Grid.Column="1">
+            <Button Content="5" FontWeight="Bold" FontSize="16"/>
+            <Button Content="50" FontWeight="Bold" FontSize="16"/>
+            <Button Content="150" FontWeight="Bold" FontSize="16"/>
+        </ComboBox>
+        <Label Content="Choose a limit" HorizontalAlignment="Left" Margin="42,131,0,0" Grid.Row="1" VerticalAlignment="Top" Height="38" Width="164" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18"/>
+        <Frame Name="Navig" Grid.Column="3" Grid.Row="1" Margin="43,39,84,19"/>
     </Grid>
 </Window>
