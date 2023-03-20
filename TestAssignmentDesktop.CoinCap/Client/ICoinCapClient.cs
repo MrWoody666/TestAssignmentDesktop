@@ -7,7 +7,7 @@ namespace TestAssignmentDesktop.CoinCap.Client;
 
 public interface ICoinCapClient
 {
-    public Task<List<CoinsResponse>> AssetsAsync(GetCoinsRequest request);
+    public Task<List<Coins>> GetAssetsAsync(GetCoinsRequest request);
 
-    public Task<CoinByIdResponse> AssetsByIdAsync(GetCoinByIdRequest request);
+    public Task<CoinByIdResponse> GetAssetByIdAsync(GetCoinByIdRequest request);
 }

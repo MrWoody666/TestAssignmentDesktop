@@ -2,9 +2,14 @@
 
 public class GetCoinsRequest
 {
-    public string SearchQuery { get; set; }
+    public GetCoinsRequest(string search, int limit, byte offset)
+    {
+        Search = search;
+        Limit = limit;
+        Offset = offset;
+    }
 
-    public string SearchIds { get; set; }
+    public string Search { get; set; } 
 
     public int Limit { get; set; }
 
@@ -14,8 +19,7 @@ public class GetCoinsRequest
     {
         var parameters = new KeyValuePair<string, string>[]
         {
-            new KeyValuePair<string, string>("q", SearchQuery),
-            new KeyValuePair<string, string>("ids", SearchIds),
+            new KeyValuePair<string, string>("search", Search),
             new KeyValuePair<string, string>("limit", Limit.ToString() ?? "2000"),
             new KeyValuePair<string, string>("offset", Offset.ToString() ?? string.Empty)
         };

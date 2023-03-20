@@ -2,6 +2,11 @@
 
 public class GetCoinByIdRequest
 {
+    public GetCoinByIdRequest(string id)
+    {
+        Id = id;
+    }
+
     public string Id { get; set; }
 
     public IDictionary<string, string> ToQueryParametersDictionary()

@@ -13,17 +13,14 @@ public class CoinCapClient : ICoinCapClient
 {
     private const string BaseUri = "https://api.coincap.io/v2/";
 
-    private string ApiKey;
-
     private readonly HttpClient _httpClient;
 
-    public CoinCapClient(HttpClient httpClient, string apiKey)
+    public CoinCapClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        ApiKey = apiKey;
     }
 
-    public async Task<List<CoinsResponse>> AssetsAsync(GetCoinsRequest request)
+    public async Task<List<Coins>> GetAssetsAsync(GetCoinsRequest request)
     {
         if(request is null)
             throw new ArgumentNullException(nameof(request));
@@ -31,18 +28,15 @@ public class CoinCapClient : ICoinCapClient
         var parametersDictionary = request.ToQueryParametersDictionary();
 
         var response = await _httpClient.GetAsync(BuildUrlQuery("assets", parametersDictionary));
+        
         response.EnsureSuccessStatusCode();
         var responseBody = await response.Content.ReadAsStringAsync();
-        var coinsResponse = JsonSerializer.Deserialize<JsonElement>(responseBody)
-            .GetProperty("data")
-            .EnumerateArray()
-            .Select(e => JsonSerializer.Deserialize<CoinsResponse>(e.GetRawText()))
-            .ToList();
+        var coinsResponse = JsonConvert.DeserializeObject<CoinsResponse>(responseBody);
 
-        return coinsResponse;
+        return coinsResponse.Data;
     }
 
-    public async Task<CoinByIdResponse> AssetsByIdAsync(GetCoinByIdRequest request)
+    public async Task<CoinByIdResponse> GetAssetByIdAsync(GetCoinByIdRequest request)
     {
         if (request is null)
             throw new ArgumentNullException(nameof(request));
@@ -52,19 +46,14 @@ public class CoinCapClient : ICoinCapClient
         var response = await _httpClient.GetAsync(BuildUrlQuery($"assets/{request.Id}", parametersDictionary));
         response.EnsureSuccessStatusCode();
         var responseBody = await response.Content.ReadAsStringAsync();
-        var coinByIdResponse = JsonSerializer.Deserialize<JsonElement>(responseBody)
-            .GetProperty("data")
-            .EnumerateArray()
-            .Select(e => JsonSerializer.Deserialize<CoinByIdResponse>(e.GetRawText()))
-            .FirstOrDefault();
+        var coinByIdResponse = JsonConvert.DeserializeObject<CoinByIdResponse>(responseBody);
 
         return coinByIdResponse;
     }
 
     private string BuildUrlQuery(string endpoint, IDictionary<string, string> queryParameters)
     {
-        queryParameters.Add("key", ApiKey);
-
+        
         return QueryHelpers.AddQueryString(BaseUri + endpoint, queryParameters);
     }
 }
