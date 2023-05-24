@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAssignmentDesktop.Wpf",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAssignmentDesktop.CoinCap", "TestAssignmentDesktop.CoinCap\TestAssignmentDesktop.CoinCap.csproj", "{52395216-A30B-4E4D-9529-7D9F3E1E4BD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAssignmentDesktop.Console", "TestAssignmentDesktop.Console\TestAssignmentDesktop.Console.csproj", "{1538DA24-F995-4F0C-9374-0D1EB6FE8EEF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{52395216-A30B-4E4D-9529-7D9F3E1E4BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52395216-A30B-4E4D-9529-7D9F3E1E4BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52395216-A30B-4E4D-9529-7D9F3E1E4BD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1538DA24-F995-4F0C-9374-0D1EB6FE8EEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1538DA24-F995-4F0C-9374-0D1EB6FE8EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1538DA24-F995-4F0C-9374-0D1EB6FE8EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1538DA24-F995-4F0C-9374-0D1EB6FE8EEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
